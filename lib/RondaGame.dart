@@ -118,7 +118,7 @@ class RondaGame {
     int playedCard = -1;
     player.cards.forEach((GameCard card) {
       if (card.cardRect.contains(d.globalPosition)) {
-        card.move = 1;
+        //card.move = 1;
         board.playCard(card, player);
         playedCard = player.cards.indexOf(card);
         //Flame.audio.play("sfx/dealcard.mp3");

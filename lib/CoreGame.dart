@@ -51,7 +51,7 @@ class CoreGame extends Game {
   void drawBackground(Canvas canvas) {
     Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     Paint bgPaint = Paint();
-    bgPaint.color = Color(0xff104b00);
+    bgPaint.color = Color(0xff362525);
     canvas.drawRect(bgRect, bgPaint);
   }
 

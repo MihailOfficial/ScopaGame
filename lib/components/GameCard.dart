@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +23,11 @@ class GameCard extends Component{
   double get speed => game.tileSize * 50;
   int move = 0;
   bool delete = false;
+  SpriteComponent spriteT;
+  bool updatePos;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
+    this.updatePos = true;
     this.fade = false;
     this.played = played;
     move = 0;
@@ -36,23 +38,25 @@ class GameCard extends Component{
     this.value = value;
     this.type = type;
     this.cardSprite = Sprite("Cards/card_" + value.toString() + "_" + type + ".png");
+
     cardRect = Rect.fromLTWH(posX, posY, width, height);
     this.delete = false;
   }
 
-  void render(Canvas canvas) {
-    if (fade) {
-        width = 40;
-    }
 
+
+  void render(Canvas canvas) {
 
     cardRect = Rect.fromLTWH(posX, posY, width, height);
+
     cardSprite.renderRect(canvas, cardRect);
+
 
 
   }
 
   void setPos (double posX, double posY , double height, double width){
+
     this.posX = posX;
     this.posY = posY;
     this.width = width;

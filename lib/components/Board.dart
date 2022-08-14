@@ -30,9 +30,15 @@ class Board {
   int shrink = 0;
   void render(Canvas canvas) {
     cards.forEach((card) {
+      if (card.delete == true) {
+        cards.remove(card);
+        card.fade = false;
+      }
+    });
+    cards.forEach((card) {
 
       move++;
-      if (move < 50 && oneTime == 0) {
+      if (move < 90 && oneTime == 0) {
         cardPosY += 0.00016*move*move;
         card.cardRect = Rect.fromLTWH(
             cards.indexOf(card) * cardWidth + cardWidth,
@@ -44,82 +50,112 @@ class Board {
       }
 
      if ( card.move != 1){
+       double posXz;
+       double posYz;
         if (cards.indexOf(card) < 3) {
-          card.cardRect = Rect.fromLTWH(
-              cards.indexOf(card) * cardWidth + cardWidth,
-              cardPosY,
-              cardWidth - 5,
-              0.8 * cardHeight - 5);
-          card.setPos(cards.indexOf(card) * cardWidth + cardWidth, cardPosY,
-              0.8 * cardHeight - 5, cardWidth - 5);
-        } else if (cards.indexOf(card) < 6) {
-          card.cardRect = Rect.fromLTWH(
-              (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth,
-              cardPosY + 0.8 * cardHeight,
-              cardWidth - 5,
-              0.8 * cardHeight - 5);
-          card.setPos(
-              (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth,
-              cardPosY + 0.8 * cardHeight, 0.8 * cardHeight - 5, cardWidth - 5);
-        } else if (cards.indexOf(card) == 6) {
-          card.cardRect =
-              Rect.fromLTWH(0, cardPosY, cardWidth - 5, 0.8 * cardHeight - 5);
-          card.setPos(0, cardPosY, 0.8 * cardHeight - 5, cardWidth - 5);
-        } else if (cards.indexOf(card) == 7) {
-          card.cardRect = Rect.fromLTWH(game.screenSize.width - cardWidth,
-              cardPosY, cardWidth - 5, 0.8 * cardHeight - 5);
-          card.setPos(
-              game.screenSize.width - cardWidth, cardPosY, 0.8 * cardHeight - 5,
-              cardWidth - 5);
-        } else if (cards.indexOf(card) == 8) {
-          card.cardRect = Rect.fromLTWH(0, cardPosY + 0.8 * cardHeight,
-              cardWidth - 5, 0.8 * cardHeight - 5);
-          card.setPos(0, cardPosY + 0.8 * cardHeight, 0.8 * cardHeight - 5,
-              cardWidth - 5);
-        } else if (cards.indexOf(card) == 9) {
-          card.cardRect = Rect.fromLTWH(game.screenSize.width - cardWidth,
-              cardPosY + 0.8 * cardHeight, cardWidth - 5, 0.8 * cardHeight - 5);
-          card.setPos(
-              game.screenSize.width - cardWidth, cardPosY + 0.8 * cardHeight,
-              0.8 * cardHeight - 5, cardWidth - 5);
-        }
-      }
-  if(card.move == 1){
-    adr += incre*incre*0.005;
-    incre++;
-    if (cards.indexOf(card) < 3) {
-      card.cardRect = Rect.fromLTWH( cards.indexOf(card) * cardWidth + cardWidth, cardPosY +  adr  , cardWidth - 5, 0.8 * cardHeight - 5);
-      card.setPos(cards.indexOf(card) * cardWidth + cardWidth, cardPosY + adr, 0.8 * cardHeight - 5, cardWidth - 5);
-    } else if (cards.indexOf(card) < 6) {
-      card.cardRect = Rect.fromLTWH((cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth, adr + cardPosY + 0.8 * cardHeight,  cardWidth - 5, 0.8 * cardHeight - 5);
-      card.setPos((cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth, adr + cardPosY + 0.8 * cardHeight, 0.8 * cardHeight - 5, cardWidth - 5);
-    } else if (cards.indexOf(card) == 6) {
-      card.cardRect = Rect.fromLTWH(0, adr + cardPosY, cardWidth - 5, 0.8 * cardHeight - 5);
-      card.setPos(0, adr + cardPosY, 0.8 * cardHeight - 5, cardWidth - 5);
-    } else if (cards.indexOf(card) == 7) {
-      card.cardRect = Rect.fromLTWH(game.screenSize.width - cardWidth, adr + cardPosY, cardWidth - 5, 0.8 * cardHeight - 5);
-      card.setPos(game.screenSize.width - cardWidth, cardPosY + adr, 0.8 * cardHeight - 5, cardWidth - 5);
-    } else if (cards.indexOf(card) == 8) {
-      card.cardRect = Rect.fromLTWH(0, adr + cardPosY + 0.8 * cardHeight, cardWidth - 5, 0.8 * cardHeight - 5);
-      card.setPos(0, adr + cardPosY + 0.8 * cardHeight, 0.8 * cardHeight - 5, cardWidth - 5);
-    } else if (cards.indexOf(card) == 9) {
-      card.cardRect = Rect.fromLTWH(game.screenSize.width - cardWidth, adr + cardPosY + 0.8 * cardHeight, cardWidth - 5, 0.8 * cardHeight - 5);
-      card.setPos(game.screenSize.width - cardWidth, adr + cardPosY + 0.8 * cardHeight, 0.8 * cardHeight - 5, cardWidth - 5);
-    }
-    if (adr > 0){ card.move = 0; adr = -50; }
-  }
-      if (card.delete == true){cards.remove(card);}
-      if (card.fade == true){
-        print("fading");
-        shrink ++;
+           posXz = cards.indexOf(card) * cardWidth + cardWidth;
+           posYz = cardPosY;
+          if ((posXz - card.posX).abs() > 1){
+            if (posXz > card.posX){card.posX += 3;}
+            else{card.posX -= 3;}
+          }
+          if ((posYz - card.posY).abs() > 1){
+            if (posYz > card.posY){card.posY += 3;}
+            else{card.posY -= 3;}
+          }
+          card.height = 0.8 * cardHeight - 5;
+          card.width = cardWidth - 5;
 
-        if (shrink == 20){
-          card.fade = false;
-          card.delete = true;
-          shrink = 0;
+
+          //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, cardWidth - 5);
+        } else if (cards.indexOf(card) < 6) {
+          posXz = (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
+          posYz = cardPosY + 0.8 * cardHeight;
+          int speedM = 3;
+          if ((posXz - card.posX).abs() > 1){
+            if (posXz > card.posX){card.posX += 3;}
+            else{card.posX -= 3;}
+          }
+          if ((posYz - card.posY).abs() > 1){
+            if (posYz > card.posY){card.posY += 3;}
+            else{card.posY -= 3;}
+          }
+          card.height = 0.8 * cardHeight - 5;
+          card.width = cardWidth - 5;
+        } else if (cards.indexOf(card) == 6) {
+          posXz = 0;
+          posYz = cardPosY;
+          if ((posXz - card.posX).abs() > 1){
+            if (posXz > card.posX){card.posX += 3;}
+            else{card.posX -= 3;}
+          }
+          if ((posYz - card.posY).abs() > 1){
+            if (posYz > card.posY){card.posY += 3;}
+            else{card.posY -= 3;}
+          }
+          card.height = 0.8 * cardHeight - 5;
+          card.width = cardWidth - 5;
+
+        } else if (cards.indexOf(card) == 7) {
+          posXz = game.screenSize.width - cardWidth;
+          posYz = cardPosY;
+          if ((posXz - card.posX).abs() > 1){
+            if (posXz > card.posX){card.posX += 3;}
+            else{card.posX -= 3;}
+          }
+          if ((posYz - card.posY).abs() > 1){
+            if (posYz > card.posY){card.posY += 4;}
+            else{card.posY -= 2;}
+          }
+          card.height = 0.8 * cardHeight - 5;
+          card.width = cardWidth - 5;
+
+        } else if (cards.indexOf(card) == 8) {
+          posXz = 0;
+          posYz = cardPosY + 0.8 * cardHeight;
+          if ((posXz - card.posX).abs() > 1){
+            if (posXz > card.posX){card.posX += 4;}
+            else{card.posX -= 4;}
+          }
+          if ((posYz - card.posY).abs() > 1){
+            if (posYz > card.posY){card.posY += 4;}
+            else{card.posY -= 2;}
+          }
+          card.height = 0.8 * cardHeight - 5;
+          card.width = cardWidth - 5;
+
+        } else if (cards.indexOf(card) == 9) {
+          posXz = game.screenSize.width - cardWidth;
+          posYz = cardPosY + 0.8 * cardHeight;
+          if ((posXz - card.posX).abs() > 1){
+            if (posXz > card.posX){card.posX += 4;}
+            else{card.posX -= 4;}
+          }
+          if ((posYz - card.posY).abs() > 1){
+            if (posYz > card.posY){card.posY += 4;}
+            else{card.posY -= 2;}
+          }
+          card.height = 0.8 * cardHeight - 5;
+          card.width = cardWidth - 5;
+
         }
       }
+
+
+    if (card.fade == true){
+      print("fading");
+      card.width = card.width -30;
+      shrink ++;
+
+      if (shrink == 35){
+
+        card.delete = true;
+
+        shrink = 0;
+      }
+    }
       card.render(canvas);
+
     });
 
   }
@@ -168,8 +204,8 @@ class Board {
 
     // removes here to not go out of bounds in loop above
     for (GameCard boardCard in found){
-
-      cards.remove(boardCard);
+      boardCard.fade = true;
+      //cards.remove(boardCard);
     }
 
     if (player is OpponentPlayer == false) {
