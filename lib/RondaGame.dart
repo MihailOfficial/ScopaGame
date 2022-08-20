@@ -104,7 +104,7 @@ class RondaGame {
 
   void opponentTurn() {
 
-    if (turn == 1 && turnTime.elapsed.inMilliseconds > 1200) {
+    if (turn == 1 && turnTime.elapsed.inMilliseconds > 1800) {
       Random rnd = new Random();
       int r = 0 + rnd.nextInt(opponent.cards.length - 0);
       board.playCard(opponent.cards[r], opponent);

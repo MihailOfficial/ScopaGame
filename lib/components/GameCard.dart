@@ -25,14 +25,15 @@ class GameCard extends Component{
   bool delete = false;
   SpriteComponent spriteT;
   bool updatePos;
+  bool present = false;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
-    this.updatePos = true;
+    this.updatePos = false;
     this.fade = false;
     this.played = played;
     move = 0;
-    width = game.screenSize.width / 3;
-    height = game.screenSize.height / 3;
+    width = game.screenSize.width / 5;
+    height = game.screenSize.height / 5;
     posX = game.screenSize.width / 2 - width / 2;
     posY = game.screenSize.height - height / 2;
     this.value = value;
@@ -43,16 +44,16 @@ class GameCard extends Component{
     this.delete = false;
   }
 
-
-
   void render(Canvas canvas) {
 
     cardRect = Rect.fromLTWH(posX, posY, width, height);
-
     cardSprite.renderRect(canvas, cardRect);
 
 
 
+  }
+  void presentCard(){
+    this.present = true;
   }
 
   void setPos (double posX, double posY , double height, double width){

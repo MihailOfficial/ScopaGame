@@ -30,11 +30,15 @@ class Board {
   int shrink = 0;
   void render(Canvas canvas) {
     cards.forEach((card) {
+      card.height = 0.8 * cardHeight - 5;
       if (card.delete == true) {
         cards.remove(card);
+        card = game.screenSize.width / 5;
+        card = game.screenSize.height / 5;
         card.fade = false;
       }
     });
+
     cards.forEach((card) {
 
       move++;
@@ -43,7 +47,7 @@ class Board {
         card.cardRect = Rect.fromLTWH(
             cards.indexOf(card) * cardWidth + cardWidth,
             cardPosY,
-            cardWidth - 5,
+            card.width - 5,
             0.8 * cardHeight - 5);
       } else {
         oneTime = 1;
@@ -52,8 +56,10 @@ class Board {
      if ( card.move != 1){
        double posXz;
        double posYz;
+
         if (cards.indexOf(card) < 3) {
            posXz = cards.indexOf(card) * cardWidth + cardWidth;
+
            posYz = cardPosY;
           if ((posXz - card.posX).abs() > 1){
             if (posXz > card.posX){card.posX += 3;}
@@ -63,11 +69,8 @@ class Board {
             if (posYz > card.posY){card.posY += 3;}
             else{card.posY -= 3;}
           }
-          card.height = 0.8 * cardHeight - 5;
-          card.width = cardWidth - 5;
 
-
-          //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, cardWidth - 5);
+          //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, card.width - 5);
         } else if (cards.indexOf(card) < 6) {
           posXz = (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
           posYz = cardPosY + 0.8 * cardHeight;
@@ -80,8 +83,8 @@ class Board {
             if (posYz > card.posY){card.posY += 3;}
             else{card.posY -= 3;}
           }
-          card.height = 0.8 * cardHeight - 5;
-          card.width = cardWidth - 5;
+
+
         } else if (cards.indexOf(card) == 6) {
           posXz = 0;
           posYz = cardPosY;
@@ -93,11 +96,11 @@ class Board {
             if (posYz > card.posY){card.posY += 3;}
             else{card.posY -= 3;}
           }
-          card.height = 0.8 * cardHeight - 5;
-          card.width = cardWidth - 5;
+
+
 
         } else if (cards.indexOf(card) == 7) {
-          posXz = game.screenSize.width - cardWidth;
+          posXz = game.screenSize.width - card.width;
           posYz = cardPosY;
           if ((posXz - card.posX).abs() > 1){
             if (posXz > card.posX){card.posX += 3;}
@@ -107,8 +110,7 @@ class Board {
             if (posYz > card.posY){card.posY += 4;}
             else{card.posY -= 2;}
           }
-          card.height = 0.8 * cardHeight - 5;
-          card.width = cardWidth - 5;
+
 
         } else if (cards.indexOf(card) == 8) {
           posXz = 0;
@@ -121,8 +123,6 @@ class Board {
             if (posYz > card.posY){card.posY += 4;}
             else{card.posY -= 2;}
           }
-          card.height = 0.8 * cardHeight - 5;
-          card.width = cardWidth - 5;
 
         } else if (cards.indexOf(card) == 9) {
           posXz = game.screenSize.width - cardWidth;
@@ -135,23 +135,19 @@ class Board {
             if (posYz > card.posY){card.posY += 4;}
             else{card.posY -= 2;}
           }
-          card.height = 0.8 * cardHeight - 5;
-          card.width = cardWidth - 5;
 
         }
       }
 
 
+
     if (card.fade == true){
-      print("fading");
-      card.width = card.width -30;
-      shrink ++;
 
-      if (shrink == 35){
+      card.width -= 3;
+      card.height -= 3;
 
+      if (card.width < 0){
         card.delete = true;
-
-        shrink = 0;
       }
     }
       card.render(canvas);
@@ -170,7 +166,6 @@ class Board {
     for (GameCard boardCard in cards){
       if (card.value == boardCard.value) {
         boardCard.fade = true;
-
         player.score += 1;
         return;
       }
@@ -205,7 +200,6 @@ class Board {
     // removes here to not go out of bounds in loop above
     for (GameCard boardCard in found){
       boardCard.fade = true;
-      //cards.remove(boardCard);
     }
 
     if (player is OpponentPlayer == false) {

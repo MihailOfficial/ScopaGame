@@ -21,11 +21,14 @@ class Player {
   }
 
   void takeCard(GameCard card) {
+
     if (cards.length < 3) {
       cards.add(card);
       double posX = cardWidth * cards.length;
       card.cardRect = Rect.fromLTWH(posX, cardPosY, cardWidth, cardHeight);
       card.setPos(posX, cardPosY, cardHeight, cardWidth);
+      card.presentCard();
+      print(true == card.present);
     }
   }
 
