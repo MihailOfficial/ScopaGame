@@ -4,6 +4,7 @@ import 'package:Scopa/components/GameCard.dart';
 import 'package:Scopa/components/OpponentPlayer.dart';
 import 'package:Scopa/components/Player.dart';
 import 'package:flame/flame.dart';
+import 'package:flame/sprite.dart';
 
 import 'GameCard.dart';
 
@@ -150,6 +151,7 @@ class Board {
         card.delete = true;
       }
     }
+
       card.render(canvas);
 
     });

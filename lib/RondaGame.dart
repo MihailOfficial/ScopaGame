@@ -29,8 +29,18 @@ class RondaGame {
     initCards();
   }
 
-  GameCard dealCard() {
+  GameCard dealCard(int type) {
+
     GameCard card = deck.deck.last;
+
+    if (type == 1){
+    deck.deck.last.present = true;
+
+    }
+    if (type == 2){
+      deck.deck.last.present2 = true;
+
+    }
     deck.deck.removeLast();
     return card;
   }
@@ -41,21 +51,21 @@ class RondaGame {
     playerScoreDisplay = ScoreDisplay(coreGame);
     opponentScoreDisplay = ScoreDisplay(coreGame);
     //Flame.audio.play("sfx/dealmultiplescards.mp3");
-    board.cards.add(dealCard());
-    board.cards.add(dealCard());
-    board.cards.add(dealCard());
-    board.cards.add(dealCard());
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
     if (player == null) {
       player = new Player(coreGame);
-      player.takeCard(dealCard());
-      player.takeCard(dealCard());
-      player.takeCard(dealCard());
+      player.takeCard(dealCard(1));
+      player.takeCard(dealCard(1));
+      player.takeCard(dealCard(1));
     }
     if (opponent == null) {
       opponent = new OpponentPlayer(coreGame);
-      opponent.takeCard(dealCard());
-      opponent.takeCard(dealCard());
-      opponent.takeCard(dealCard());
+      opponent.takeCard(dealCard(2));
+      opponent.takeCard(dealCard(2));
+      opponent.takeCard(dealCard(2));
     }
     board.changed = 1;
   }
@@ -76,12 +86,12 @@ class RondaGame {
     if (deck.deck.isNotEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
 
       //Flame.audio.play("sfx/dealmultiplescards.mp3");
-      player.takeCard(dealCard());
-      player.takeCard(dealCard());
-      player.takeCard(dealCard());
-      opponent.takeCard(dealCard());
-      opponent.takeCard(dealCard());
-      opponent.takeCard(dealCard());
+      player.takeCard(dealCard(1));
+      player.takeCard(dealCard(1));
+      player.takeCard(dealCard(1));
+      opponent.takeCard(dealCard(2));
+      opponent.takeCard(dealCard(2));
+      opponent.takeCard(dealCard(2));
       board.changed = 1;
     }
     if (deck.deck.isEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {

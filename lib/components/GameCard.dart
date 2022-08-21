@@ -26,6 +26,7 @@ class GameCard extends Component{
   SpriteComponent spriteT;
   bool updatePos;
   bool present = false;
+  bool present2 = false;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;
@@ -52,9 +53,6 @@ class GameCard extends Component{
 
 
   }
-  void presentCard(){
-    this.present = true;
-  }
 
   void setPos (double posX, double posY , double height, double width){
 
@@ -73,6 +71,7 @@ class GameCard extends Component{
     else {
       cardSprite = Sprite("Cards/card_" + value.toString() + "_" + type + ".png");
     }
+
 
     cardRect = Rect.fromLTWH(posX, posY, width, height);
 
