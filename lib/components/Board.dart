@@ -30,6 +30,7 @@ class Board {
   double incre = 1.1;
   int shrink = 0;
   void render(Canvas canvas) {
+    int changed = 0;
     cards.forEach((card) {
       card.height = 0.8 * cardHeight - 5;
       if (card.delete == true) {
@@ -63,10 +64,14 @@ class Board {
 
            posYz = cardPosY;
           if ((posXz - card.posX).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posXz > card.posX){card.posX += 3;}
             else{card.posX -= 3;}
           }
           if ((posYz - card.posY).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posYz > card.posY){card.posY += 3;}
             else{card.posY -= 3;}
           }
@@ -76,11 +81,16 @@ class Board {
           posXz = (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
           posYz = cardPosY + 0.8 * cardHeight;
           int speedM = 3;
+
           if ((posXz - card.posX).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posXz > card.posX){card.posX += 3;}
             else{card.posX -= 3;}
           }
           if ((posYz - card.posY).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posYz > card.posY){card.posY += 3;}
             else{card.posY -= 3;}
           }
@@ -90,10 +100,14 @@ class Board {
           posXz = 0;
           posYz = cardPosY;
           if ((posXz - card.posX).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posXz > card.posX){card.posX += 3;}
             else{card.posX -= 3;}
           }
           if ((posYz - card.posY).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posYz > card.posY){card.posY += 3;}
             else{card.posY -= 3;}
           }
@@ -104,10 +118,14 @@ class Board {
           posXz = game.screenSize.width - card.width;
           posYz = cardPosY;
           if ((posXz - card.posX).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posXz > card.posX){card.posX += 3;}
             else{card.posX -= 3;}
           }
           if ((posYz - card.posY).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posYz > card.posY){card.posY += 4;}
             else{card.posY -= 2;}
           }
@@ -117,10 +135,14 @@ class Board {
           posXz = 0;
           posYz = cardPosY + 0.8 * cardHeight;
           if ((posXz - card.posX).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posXz > card.posX){card.posX += 4;}
             else{card.posX -= 4;}
           }
           if ((posYz - card.posY).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posYz > card.posY){card.posY += 4;}
             else{card.posY -= 2;}
           }
@@ -129,32 +151,41 @@ class Board {
           posXz = game.screenSize.width - cardWidth;
           posYz = cardPosY + 0.8 * cardHeight;
           if ((posXz - card.posX).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posXz > card.posX){card.posX += 4;}
             else{card.posX -= 4;}
           }
           if ((posYz - card.posY).abs() > 1){
+            game.movingCard = true;
+            changed++;
             if (posYz > card.posY){card.posY += 4;}
             else{card.posY -= 2;}
           }
 
         }
+
       }
 
 
 
     if (card.fade == true){
-
-      card.width -= 3;
-      card.height -= 3;
+      game.movingCard = true;
+      changed++;
+      card.width -= 2;
 
       if (card.width < 0){
         card.delete = true;
       }
     }
 
+
       card.render(canvas);
 
     });
+    if (changed == 0){
+      game.movingCard = false;
+    }
 
   }
 

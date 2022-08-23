@@ -20,6 +20,7 @@ class CoreGame extends Game {
   View activeView = View.home;
   StartButton startButton;
   Result resultView;
+  bool movingCard = false;
 
   CoreGame() {
     initialize();

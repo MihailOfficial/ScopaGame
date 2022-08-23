@@ -22,7 +22,6 @@ class RondaGame {
   Board board;
   ScoreDisplay playerScoreDisplay;
   ScoreDisplay opponentScoreDisplay;
-
   int turn = 0;
   Stopwatch turnTime;
   RondaGame(this.coreGame) {
@@ -114,7 +113,8 @@ class RondaGame {
 
   void opponentTurn() {
 
-    if (turn == 1 && turnTime.elapsed.inMilliseconds > 1800) {
+    if (turn == 1 && !coreGame.movingCard) {
+
       Random rnd = new Random();
       int r = 0 + rnd.nextInt(opponent.cards.length - 0);
       board.playCard(opponent.cards[r], opponent);
@@ -130,10 +130,11 @@ class RondaGame {
       if (card.cardRect.contains(d.globalPosition)) {
         //card.move = 1;
         board.playCard(card, player);
+        coreGame.movingCard = true;
         playedCard = player.cards.indexOf(card);
         //Flame.audio.play("sfx/dealcard.mp3");
         endTurn();
-        turnTime = new Stopwatch()..start();
+
       }
     });
     if (playedCard != -1) {
