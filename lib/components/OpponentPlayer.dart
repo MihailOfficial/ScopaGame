@@ -15,6 +15,22 @@ class OpponentPlayer extends Player {
       } else {
         card.present2 = false;
       }
+      if (card.reveal == true && card.posY < cardHeight) {
+        card.posY += 0.3;
+      } else {
+        //card.reveal = false;
+      }
+      card.update(t);
+    });
+
+    cards.forEach((card) {
+
+      if (card.reveal == true && card.posY < -cardHeight) {
+        card.posY += 0.5;
+      } else {
+        //card.reveal = false;
+      }
+
       card.update(t);
     });
   }

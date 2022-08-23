@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 
 class GameCard extends Component{
   final game;
-
   int value;
   String type;
   bool visible = true;
-
   Sprite cardSprite;
   Rect cardRect;
   double width;
@@ -27,6 +25,7 @@ class GameCard extends Component{
   bool updatePos;
   bool present = false;
   bool present2 = false;
+  bool reveal = false;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;
@@ -61,14 +60,13 @@ class GameCard extends Component{
     this.width = width;
     this.height = height;
   }
-  int incre = 0;
+
   @override
   void update(double t) {
 
-    if (!visible) {
+    if (!visible & !reveal) {
       cardSprite = Sprite("Cards/back.png");
-    }
-    else {
+    } else {
       cardSprite = Sprite("Cards/card_" + value.toString() + "_" + type + ".png");
     }
 

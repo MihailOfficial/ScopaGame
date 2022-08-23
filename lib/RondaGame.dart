@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
@@ -118,7 +119,10 @@ class RondaGame {
       Random rnd = new Random();
       int r = 0 + rnd.nextInt(opponent.cards.length - 0);
       board.playCard(opponent.cards[r], opponent);
-      opponent.cards.removeAt(r);
+      opponent.cards[r].reveal = true;
+      const twentyMillis = Duration(milliseconds:1000);
+      Timer(twentyMillis, () => opponent.cards.removeAt(r));
+      //opponent.cards.removeAt(r);
       endTurn();
     }
 
