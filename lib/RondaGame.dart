@@ -122,7 +122,7 @@ class RondaGame {
       opponent.cards[r].reveal = true;
       const twentyMillis = Duration(milliseconds:1000);
       Timer(twentyMillis, () => opponent.cards.removeAt(r));
-      //opponent.cards.removeAt(r);
+
       endTurn();
     }
 

@@ -54,7 +54,7 @@ class ScoreDisplay {
       else {
         position = Offset(
             game.screenSize.width - game.tileSize * 1.5,
-            player.cardPosY
+            player.cardPosY - 50
         );
       }
     }

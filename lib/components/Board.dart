@@ -58,7 +58,7 @@ class Board {
      if ( card.move != 1){
        double posXz;
        double posYz;
-
+        int moveSpeed = 2;
         if (cards.indexOf(card) < 3) {
            posXz = cards.indexOf(card) * cardWidth + cardWidth;
 
@@ -66,14 +66,14 @@ class Board {
           if ((posXz - card.posX).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posXz > card.posX){card.posX += 3;}
-            else{card.posX -= 3;}
+            if (posXz > card.posX){card.posX += moveSpeed;}
+            else{card.posX -= moveSpeed;}
           }
           if ((posYz - card.posY).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posYz > card.posY){card.posY += 3;}
-            else{card.posY -= 3;}
+            if (posYz > card.posY){card.posY += moveSpeed;}
+            else{card.posY -= moveSpeed;}
           }
 
           //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, card.width - 5);
@@ -85,14 +85,14 @@ class Board {
           if ((posXz - card.posX).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posXz > card.posX){card.posX += 3;}
-            else{card.posX -= 3;}
+            if (posXz > card.posX){card.posX += moveSpeed;}
+            else{card.posX -= moveSpeed;}
           }
           if ((posYz - card.posY).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posYz > card.posY){card.posY += 3;}
-            else{card.posY -= 3;}
+            if (posYz > card.posY){card.posY += moveSpeed;}
+            else{card.posY -= moveSpeed;}
           }
 
 
@@ -102,14 +102,14 @@ class Board {
           if ((posXz - card.posX).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posXz > card.posX){card.posX += 3;}
-            else{card.posX -= 3;}
+            if (posXz > card.posX){card.posX += moveSpeed;}
+            else{card.posX -= moveSpeed;}
           }
           if ((posYz - card.posY).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posYz > card.posY){card.posY += 3;}
-            else{card.posY -= 3;}
+            if (posYz > card.posY){card.posY += moveSpeed;}
+            else{card.posY -= moveSpeed;}
           }
 
 
@@ -120,13 +120,13 @@ class Board {
           if ((posXz - card.posX).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posXz > card.posX){card.posX += 3;}
-            else{card.posX -= 3;}
+            if (posXz > card.posX){card.posX += moveSpeed;}
+            else{card.posX -= moveSpeed;}
           }
           if ((posYz - card.posY).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posYz > card.posY){card.posY += 4;}
+            if (posYz > card.posY){card.posY += moveSpeed;}
             else{card.posY -= 2;}
           }
 
@@ -137,13 +137,13 @@ class Board {
           if ((posXz - card.posX).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posXz > card.posX){card.posX += 4;}
-            else{card.posX -= 4;}
+            if (posXz > card.posX){card.posX += moveSpeed;}
+            else{card.posX -= moveSpeed;}
           }
           if ((posYz - card.posY).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posYz > card.posY){card.posY += 4;}
+            if (posYz > card.posY){card.posY += moveSpeed;}
             else{card.posY -= 2;}
           }
 
@@ -153,13 +153,13 @@ class Board {
           if ((posXz - card.posX).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posXz > card.posX){card.posX += 4;}
-            else{card.posX -= 4;}
+            if (posXz > card.posX){card.posX += moveSpeed;}
+            else{card.posX -= moveSpeed;}
           }
           if ((posYz - card.posY).abs() > 1){
             game.movingCard = true;
             changed++;
-            if (posYz > card.posY){card.posY += 4;}
+            if (posYz > card.posY){card.posY += moveSpeed;}
             else{card.posY -= 2;}
           }
 
@@ -175,6 +175,14 @@ class Board {
       card.width -= 2;
 
       if (card.width < 0){
+        card.delete = true;
+      }
+    }
+    if (card.revealFalse == true){
+      card.width -= 2;
+
+      if (card.width < 0){
+        card.revealFalse = false;
         card.delete = true;
       }
     }

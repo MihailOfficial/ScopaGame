@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flame/components/component.dart';
+import 'package:flame/effects/scale_effect.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class GameCard extends Component{
   bool present = false;
   bool present2 = false;
   bool reveal = false;
+  bool revealFalse = false;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;
@@ -38,7 +40,7 @@ class GameCard extends Component{
     posY = game.screenSize.height - height / 2;
     this.value = value;
     this.type = type;
-    this.cardSprite = Sprite("Cards/card_" + value.toString() + "_" + type + ".png");
+    this.cardSprite = Sprite("new/" + value.toString() + "_of_" + type + ".svg");
 
     cardRect = Rect.fromLTWH(posX, posY, width, height);
     this.delete = false;
@@ -65,9 +67,9 @@ class GameCard extends Component{
   void update(double t) {
 
     if (!visible & !reveal) {
-      cardSprite = Sprite("Cards/back.png");
+      cardSprite = Sprite("tempo/back.png");
     } else {
-      cardSprite = Sprite("Cards/card_" + value.toString() + "_" + type + ".png");
+      cardSprite = Sprite("tempo/" + value.toString() + "_" + type + "_white.png");
     }
 
 

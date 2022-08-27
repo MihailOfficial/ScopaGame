@@ -4,7 +4,7 @@ import 'package:Scopa/view.dart';
 import 'package:Scopa/views/home-view.dart';
 import 'package:Scopa/views/result.dart';
 import 'package:flame/flame.dart';
-import 'package:flame/game/game.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import 'RondaGame.dart';
@@ -51,9 +51,20 @@ class CoreGame extends Game {
 
   void drawBackground(Canvas canvas) {
     Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-    Paint bgPaint = Paint();
-    bgPaint.color = Color(0xff362525);
-    canvas.drawRect(bgRect, bgPaint);
+    //Paint bgPaint = Paint();
+    //bgPaint.color = Color(0xff162111);
+
+    final paint = Paint()
+      ..shader = const LinearGradient(
+        colors: [
+          Color(0xff22361b),
+          Color(0xff090c06),
+        ],
+        begin: Alignment.bottomCenter,
+        end: Alignment.topCenter,
+      ).createShader(bgRect);
+    canvas.drawRect(bgRect, paint);
+
   }
 
   @override

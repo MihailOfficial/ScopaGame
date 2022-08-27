@@ -18,7 +18,7 @@ class Player {
   Player(this.game) {
     cards = List<GameCard>();
     cardWidth = game.screenSize.width / 5;
-    cardHeight = game.screenSize.height / 5;
+    cardHeight = game.screenSize.height / 6;
     cardPosY = game.screenSize.height - 10;
     //game.screenSize.height - cardHeight / 2;
   }
@@ -27,10 +27,10 @@ class Player {
 
     if (cards.length < 3) {
       cards.add(card);
-      double posX = cardWidth * cards.length;
+      double posX = (cardWidth * cards.length);
       card.cardRect = Rect.fromLTWH(posX, cardPosY, cardWidth, cardHeight);
       card.setPos(posX, cardPosY, cardHeight, cardWidth);
-      card.cardSprite = Sprite("Cards/back.png");
+      card.cardSprite = Sprite("tempo/back.png");
       card.present = true;
     }
   }
@@ -38,11 +38,11 @@ class Player {
   void render(Canvas canvas) {
     cards.forEach((element) {element.render(canvas);});
     cards.forEach((card) {
-      if (card.present == true && card.posY > game.screenSize.height - cardHeight / 2) {
-        card.posY -= 0.5;
+      if (card.present == true && card.posY > game.screenSize.height - (2*cardHeight / 3)) {
+        card.posY -= 1;
       } else {
         card.present = false;
-        card.cardSprite = Sprite("Cards/card_" + card.value.toString() + "_" + card.type + ".png");
+        card.cardSprite = Sprite("tempo/" + card.value.toString() + "_" + card.type + "_white.png");
       }
 
     });

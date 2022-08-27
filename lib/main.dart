@@ -19,7 +19,7 @@ void main() {
   flameUtil.addGestureRecognizer(tapper);
 
   Flame.images.loadAll(<String>[
-    "Cards/",
+    "tempo/",
   ]);
 
   Flame.audio.disableLog();
