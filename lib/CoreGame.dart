@@ -57,8 +57,8 @@ class CoreGame extends Game {
     final paint = Paint()
       ..shader = const LinearGradient(
         colors: [
-          Color(0xff22361b),
-          Color(0xff090c06),
+          Color(0xff507d3f),
+          Color(0xff0d1109),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
