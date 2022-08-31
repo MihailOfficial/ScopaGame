@@ -28,6 +28,7 @@ class GameCard extends Component{
   bool present2 = false;
   bool reveal = false;
   bool revealFalse = false;
+  bool cpuCard =false;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;
@@ -45,12 +46,17 @@ class GameCard extends Component{
     cardRect = Rect.fromLTWH(posX, posY, width, height);
     this.delete = false;
   }
+  final Color background = Color.fromRGBO(189, 0, 0, 1.0);
+  Paint paint = Paint();
+  double opacity = 0;
 
   void render(Canvas canvas) {
 
-    cardRect = Rect.fromLTWH(posX, posY, width, height);
-    cardSprite.renderRect(canvas, cardRect);
 
+
+    cardRect = Rect.fromLTWH(posX, posY, width, height);
+    canvas.drawRect(cardRect, paint..color = background.withOpacity(opacity));
+    cardSprite.renderRect(canvas, cardRect);
 
 
   }
@@ -63,11 +69,31 @@ class GameCard extends Component{
     this.height = height;
   }
 
+   double _acceleration = 1;
   @override
   void update(double t) {
 
     if (!visible & !reveal) {
       cardSprite = Sprite("tempo/back.png");
+    }  else if (fade ){
+      if (width < (game.screenSize.width / 5) * 1.2){
+       // opacity += 0.05;
+        this.width += 1;
+        this.height += 1;
+      } else {
+        this.posX -= _acceleration * 0.5;
+        if (cpuCard){
+          this.posY -= _acceleration;
+        } else {
+          this.posY += _acceleration;
+        }
+
+        _acceleration = _acceleration * 1.08;
+      }
+
+      //this.posY -= 0.5;
+
+
     } else {
       cardSprite = Sprite("tempo/" + value.toString() + "_" + type + "_white.png");
     }

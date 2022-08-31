@@ -23,163 +23,194 @@ class Board {
     cardWidth = game.screenSize.width / 5;
     cardHeight = game.screenSize.height / 5;
     cardPosY = game.screenSize.height / 2 - cardHeight;
+
   }
   int move = 0;
   int oneTime = 0;
   double adr = -50;
   double incre = 1.1;
   int shrink = 0;
+  int sizeCards = 0;
   void render(Canvas canvas) {
     int changed = 0;
     cards.forEach((card) {
-      card.height = 0.8 * cardHeight - 5;
+
+
       if (card.delete == true) {
         cards.remove(card);
-        card = game.screenSize.width / 5;
-        card = game.screenSize.height / 5;
+
         card.fade = false;
       }
     });
-
+    sizeCards ++;
     cards.forEach((card) {
+      if (! card.fade) {
+        move++;
+        card.height = game.screenSize.height / 6;
 
-      move++;
-      if (move < 90 && oneTime == 0) {
-        cardPosY += 0.00016*move*move;
-        card.cardRect = Rect.fromLTWH(
-            cards.indexOf(card) * cardWidth + cardWidth,
-            cardPosY,
-            card.width - 5,
-            0.8 * cardHeight - 5);
-      } else {
-        oneTime = 1;
-      }
+        if (card.move != 1) {
+          double posXz;
+          double posYz;
+          int moveSpeed = 2;
+          if (cards.indexOf(card) < 3) {
+            posXz = cards.indexOf(card) * cardWidth + cardWidth;
 
-     if ( card.move != 1){
-       double posXz;
-       double posYz;
-        int moveSpeed = 2;
-        if (cards.indexOf(card) < 3) {
-           posXz = cards.indexOf(card) * cardWidth + cardWidth;
+            posYz = cardPosY;
+            if ((posXz - card.posX).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posXz > card.posX) {
+                card.posX += moveSpeed;
+              }
+              else {
+                card.posX -= moveSpeed;
+              }
+            }
+            if ((posYz - card.posY).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posYz > card.posY) {
+                card.posY += moveSpeed;
+              }
+              else {
+                card.posY -= moveSpeed;
+              }
+            }
 
-           posYz = cardPosY;
-          if ((posXz - card.posX).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posXz > card.posX){card.posX += moveSpeed;}
-            else{card.posX -= moveSpeed;}
+            //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, card.width - 5);
+          } else if (cards.indexOf(card) < 6) {
+            posXz =
+                (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
+            posYz = cardPosY + 0.8 * cardHeight;
+            int speedM = 3;
+
+            if ((posXz - card.posX).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posXz > card.posX) {
+                card.posX += moveSpeed;
+              }
+              else {
+                card.posX -= moveSpeed;
+              }
+            }
+            if ((posYz - card.posY).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posYz > card.posY) {
+                card.posY += moveSpeed;
+              }
+              else {
+                card.posY -= moveSpeed;
+              }
+            }
+          } else if (cards.indexOf(card) == 6) {
+            posXz = 0;
+            posYz = cardPosY;
+            if ((posXz - card.posX).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posXz > card.posX) {
+                card.posX += moveSpeed;
+              }
+              else {
+                card.posX -= moveSpeed;
+              }
+            }
+            if ((posYz - card.posY).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posYz > card.posY) {
+                card.posY += moveSpeed;
+              }
+              else {
+                card.posY -= moveSpeed;
+              }
+            }
+          } else if (cards.indexOf(card) == 7) {
+            posXz = game.screenSize.width - card.width;
+            posYz = cardPosY;
+            if ((posXz - card.posX).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posXz > card.posX) {
+                card.posX += moveSpeed;
+              }
+              else {
+                card.posX -= moveSpeed;
+              }
+            }
+            if ((posYz - card.posY).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posYz > card.posY) {
+                card.posY += moveSpeed;
+              }
+              else {
+                card.posY -= 2;
+              }
+            }
+          } else if (cards.indexOf(card) == 8) {
+            posXz = 0;
+            posYz = cardPosY + 0.8 * cardHeight;
+            if ((posXz - card.posX).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posXz > card.posX) {
+                card.posX += moveSpeed;
+              }
+              else {
+                card.posX -= moveSpeed;
+              }
+            }
+            if ((posYz - card.posY).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posYz > card.posY) {
+                card.posY += moveSpeed;
+              }
+              else {
+                card.posY -= 2;
+              }
+            }
+          } else if (cards.indexOf(card) == 9) {
+            posXz = game.screenSize.width - cardWidth;
+            posYz = cardPosY + 0.8 * cardHeight;
+            if ((posXz - card.posX).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posXz > card.posX) {
+                card.posX += moveSpeed;
+              }
+              else {
+                card.posX -= moveSpeed;
+              }
+            }
+            if ((posYz - card.posY).abs() > 1) {
+              game.movingCard = true;
+              changed++;
+              if (posYz > card.posY) {
+                card.posY += moveSpeed;
+              }
+              else {
+                card.posY -= 2;
+              }
+            }
           }
-          if ((posYz - card.posY).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posYz > card.posY){card.posY += moveSpeed;}
-            else{card.posY -= moveSpeed;}
-          }
-
-          //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, card.width - 5);
-        } else if (cards.indexOf(card) < 6) {
-          posXz = (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
-          posYz = cardPosY + 0.8 * cardHeight;
-          int speedM = 3;
-
-          if ((posXz - card.posX).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posXz > card.posX){card.posX += moveSpeed;}
-            else{card.posX -= moveSpeed;}
-          }
-          if ((posYz - card.posY).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posYz > card.posY){card.posY += moveSpeed;}
-            else{card.posY -= moveSpeed;}
-          }
-
-
-        } else if (cards.indexOf(card) == 6) {
-          posXz = 0;
-          posYz = cardPosY;
-          if ((posXz - card.posX).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posXz > card.posX){card.posX += moveSpeed;}
-            else{card.posX -= moveSpeed;}
-          }
-          if ((posYz - card.posY).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posYz > card.posY){card.posY += moveSpeed;}
-            else{card.posY -= moveSpeed;}
-          }
-
-
-
-        } else if (cards.indexOf(card) == 7) {
-          posXz = game.screenSize.width - card.width;
-          posYz = cardPosY;
-          if ((posXz - card.posX).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posXz > card.posX){card.posX += moveSpeed;}
-            else{card.posX -= moveSpeed;}
-          }
-          if ((posYz - card.posY).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posYz > card.posY){card.posY += moveSpeed;}
-            else{card.posY -= 2;}
-          }
-
-
-        } else if (cards.indexOf(card) == 8) {
-          posXz = 0;
-          posYz = cardPosY + 0.8 * cardHeight;
-          if ((posXz - card.posX).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posXz > card.posX){card.posX += moveSpeed;}
-            else{card.posX -= moveSpeed;}
-          }
-          if ((posYz - card.posY).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posYz > card.posY){card.posY += moveSpeed;}
-            else{card.posY -= 2;}
-          }
-
-        } else if (cards.indexOf(card) == 9) {
-          posXz = game.screenSize.width - cardWidth;
-          posYz = cardPosY + 0.8 * cardHeight;
-          if ((posXz - card.posX).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posXz > card.posX){card.posX += moveSpeed;}
-            else{card.posX -= moveSpeed;}
-          }
-          if ((posYz - card.posY).abs() > 1){
-            game.movingCard = true;
-            changed++;
-            if (posYz > card.posY){card.posY += moveSpeed;}
-            else{card.posY -= 2;}
-          }
-
         }
-
       }
-
-
 
     if (card.fade == true){
       game.movingCard = true;
       changed++;
-      card.width -= 2;
-
-      if (card.width < 0){
+      //card.height -= 1;
+      if (card.posX < -cardWidth){
         card.delete = true;
       }
     }
     if (card.revealFalse == true){
       card.width -= 2;
+
 
       if (card.width < 0){
         card.revealFalse = false;
@@ -206,6 +237,10 @@ class Board {
     // look for matching card
     for (GameCard boardCard in cards){
       if (card.value == boardCard.value) {
+
+        if (player is OpponentPlayer){
+          boardCard.cpuCard = true;
+        }
         boardCard.fade = true;
         player.score += 1;
         return;
@@ -230,7 +265,6 @@ class Board {
               print(" ident: " + cards.elementAt(a).value.toString());
               found.add(cards.elementAt(a));
               player.score += 1;
-
               //handle score later
             }
           }
@@ -240,6 +274,10 @@ class Board {
 
     // removes here to not go out of bounds in loop above
     for (GameCard boardCard in found){
+
+      if (player is OpponentPlayer){
+        boardCard.cpuCard = true;
+      }
       boardCard.fade = true;
     }
 

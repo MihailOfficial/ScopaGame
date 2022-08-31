@@ -26,7 +26,5 @@ flutter:
   assets:
      - assets/audio/sfx/
      - assets/images/UI/
-     - assets/images/Cards/
-     - assets/images/new/
      - assets/images/tempo/
 
