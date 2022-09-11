@@ -29,6 +29,9 @@ class GameCard extends Component{
   bool reveal = false;
   bool revealFalse = false;
   bool cpuCard =false;
+  bool isMoving = false;
+  double offsetX = 0;
+  double offsetY = 0;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;

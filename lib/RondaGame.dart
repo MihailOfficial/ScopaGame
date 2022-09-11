@@ -79,6 +79,7 @@ class RondaGame {
   }
 
   void update(double t) {
+    print("moving: " + coreGame.movingCard.toString());
     opponent.update(t);
     board.update(t);
     playerScoreDisplay.update(t, player);

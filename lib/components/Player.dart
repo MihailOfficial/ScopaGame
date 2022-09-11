@@ -46,6 +46,7 @@ class Player {
       }
 
     });
+    cards.forEach((element) {element.render(canvas);});
 
   }
 }
