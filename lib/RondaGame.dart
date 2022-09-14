@@ -76,10 +76,24 @@ class RondaGame {
     opponent.render(canvas);
     playerScoreDisplay.render(canvas);
     opponentScoreDisplay.render(canvas);
+
   }
 
   void update(double t) {
-    print("moving: " + coreGame.movingCard.toString());
+
+    if (board.revertColor){
+       coreGame.bValue--;
+      print("need revert");
+      if (coreGame.bValue>80){coreGame.bValue--;}
+      else {board.revertColor = false;}
+    }
+    if (board.revertColorR){
+      coreGame.rValue--;
+      print("need revert");
+      if (coreGame.rValue>0){coreGame.rValue--;}
+      else {board.revertColorR = false;}
+    }
+    //print("moving: " + coreGame.movingCard.toString());
     opponent.update(t);
     board.update(t);
     playerScoreDisplay.update(t, player);
@@ -105,6 +119,8 @@ class RondaGame {
       coreGame.activeView = View.result;
     }
     opponentTurn();
+
+
   }
 
   void onTapDown(TapDownDetails d) {

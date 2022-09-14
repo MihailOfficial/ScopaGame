@@ -22,6 +22,8 @@ class CoreGame extends Game {
   Result resultView;
   bool movingCard = false;
 
+  int bValue = 80;
+  int rValue = 0;
   CoreGame() {
     initialize();
   }
@@ -35,6 +37,7 @@ class CoreGame extends Game {
 
   @override
   void render(Canvas canvas) {
+
     drawBackground(canvas);
     if (activeView == View.home) {
       homeView.render(canvas);
@@ -55,10 +58,10 @@ class CoreGame extends Game {
     //bgPaint.color = Color(0xff162111);
 
     final paint = Paint()
-      ..shader = const LinearGradient(
+      ..shader = LinearGradient(
         colors: [
-          Color(0xff507d3f),
-          Color(0xff0d1109),
+          Color.fromRGBO(0, bValue, 0, 1.0),
+          Color.fromRGBO(rValue, 0, 0, 1.0),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
@@ -69,12 +72,15 @@ class CoreGame extends Game {
 
   @override
   void update(double t) {
+
     if (activeView == View.playing) {
       rondaGame.update(t);
+
     }
     if (activeView == View.result) {
       resultView.update(t);
     }
+
   }
 
   void resize(Size size) {

@@ -34,14 +34,16 @@ class Player {
       card.present = true;
     }
   }
-
+  double slideNum = 1;
   void render(Canvas canvas) {
     cards.forEach((element) {element.render(canvas);});
     cards.forEach((card) {
       if (card.present == true && card.posY > game.screenSize.height - (2*cardHeight / 3)) {
-        card.posY -= 1;
+        card.posY -= slideNum;
+        slideNum = slideNum*slideNum;
       } else {
         card.present = false;
+        slideNum = 1;
         card.cardSprite = Sprite("tempo/" + card.value.toString() + "_" + card.type + "_white.png");
       }
 

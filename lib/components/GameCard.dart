@@ -76,29 +76,30 @@ class GameCard extends Component{
   @override
   void update(double t) {
 
+
     if (!visible & !reveal) {
       cardSprite = Sprite("tempo/back.png");
     }  else if (fade ){
-      if (width < (game.screenSize.width / 5) * 1.2){
-       // opacity += 0.05;
-        this.width += 1;
-        this.height += 1;
-      } else {
+
         this.posX -= _acceleration * 0.5;
         if (cpuCard){
           this.posY -= _acceleration;
+          game.rValue += 1;
         } else {
           this.posY += _acceleration;
+          game.bValue += 1;
+
         }
 
         _acceleration = _acceleration * 1.08;
-      }
+
 
       //this.posY -= 0.5;
 
 
     } else {
       cardSprite = Sprite("tempo/" + value.toString() + "_" + type + "_white.png");
+
     }
 
 

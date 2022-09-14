@@ -12,13 +12,15 @@ import 'GameCard.dart';
 class Board {
   List<GameCard> cards;
   final game;
-
+  List<GameCard> deleted;
   double cardPosX = 0;
   double cardPosY;
   double cardWidth;
   double cardHeight;
   List<int> summed = List<int>();
   double changed = 0;
+  bool revertColor = false;
+  bool revertColorR = false;
   Board(this.game) {
     cards = List<GameCard>();
     cardWidth = game.screenSize.width / 5;
@@ -32,17 +34,48 @@ class Board {
   double incre = 1.1;
   int shrink = 0;
   int sizeCards = 0;
-  void render(Canvas canvas) {
-    int changed = 0;
-    cards.forEach((card) {
+
+
+  void update(double t) {
+
+    for (int i = 0; i< cards.length; i++) {
+      GameCard card = cards[i];
+
       if (card.delete == true) {
+        //eleted.add(card);
+        revertColor = true;
+        revertColorR = true;
         cards.remove(card);
         card.fade = false;
+        card.update(t);
       }
-    });
+    }
+    for (int i = 0; i< cards.length; i++) {
+      GameCard card = cards[i];
+      card.visible = true;
+      card.update(t);
+    }
+  }
+
+  void render(Canvas canvas) {
+
+    int changed = 0;
+
     sizeCards ++;
-    cards.forEach((card) {
-      if (! card.fade) {
+
+    for (int i = 0; i< cards.length; i++){
+
+      GameCard card = cards[i];
+      if (card.delete == true) {
+        //deleted.add(card);
+        revertColor = true;
+        revertColorR = true;
+        cards.remove(card);
+        card.fade = false;
+        revertColor = true;
+        revertColorR = true;
+      }
+      if (!card.fade) {
         move++;
         card.height = game.screenSize.height / 6;
 
@@ -56,7 +89,8 @@ class Board {
             changed = mover(posXz, posYz, card, changed);
             //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, card.width - 5);
           } else if (cards.indexOf(card) < 6) {
-            posXz = (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
+            posXz =
+                (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
             posYz = cardPosY + 0.8 * cardHeight;
             changed = mover(posXz, posYz, card, changed);
           } else if (cards.indexOf(card) == 6) {
@@ -79,34 +113,43 @@ class Board {
         }
       }
 
-    if (card.fade == true){
-      game.movingCard = true; card.isMoving = true;
-      changed++;
-      //card.height -= 1;
-      if (card.posX < -cardWidth){
-        card.delete = true;
+      if (card.fade == true) {
+        game.movingCard = true;
+        card.isMoving = true;
+        changed++;
+        //card.height -= 1;
+        if (card.posX < -cardWidth) {
+          card.delete = true;
+
+
+        }
       }
-    }
-    if (card.revealFalse == true){
-      card.width -= 2;
-      if (card.width < 0){
-        card.revealFalse = false;
-        card.delete = true;
+
+      if (card.revealFalse == true) {
+        card.width -= 2;
+        if (card.width < 0) {
+          card.revealFalse = false;
+          card.delete = true;
+        }
       }
-    }
-      if (game.movingCard = true){
+      if (game.movingCard = true) {
         card.render(canvas);
         card.isMoving = false;
       }
 
-        card.offsetX = 0;
-        card.offsetY = 0;
-
-
-    });
+      card.offsetX = 0;
+      card.offsetY = 0;
+    }
     if (changed == 0){
       game.movingCard = false;
 
+    }
+
+    for (int i = 0; i< cards.length; i++) {
+      GameCard card = cards[i];
+      if (card.fade){
+        card.render(canvas);
+      }
     }
 
   }
@@ -162,6 +205,7 @@ class Board {
         boardCard.cpuCard = true;
       }
       boardCard.fade = true;
+
     }
 
     if (player is OpponentPlayer == false) {
@@ -196,12 +240,7 @@ class Board {
     return;
   }
 
-  void update(double t) {
-    cards.forEach((card) {
-      card.visible = true;
-      card.update(t);
-    });
-  }
+
   int mover (double posXz, double posYz, GameCard card, int changed){
     int moveSpeed = 2;
     double distance ;
