@@ -82,13 +82,12 @@ class RondaGame {
   void update(double t) {
 
     if (board.revertColor){
-       coreGame.bValue--;
+
       print("need revert");
       if (coreGame.bValue>80){coreGame.bValue--;}
       else {board.revertColor = false;}
     }
     if (board.revertColorR){
-      coreGame.rValue--;
       print("need revert");
       if (coreGame.rValue>0){coreGame.rValue--;}
       else {board.revertColorR = false;}
