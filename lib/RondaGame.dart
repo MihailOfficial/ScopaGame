@@ -35,11 +35,9 @@ class RondaGame {
 
     if (type == 1){
     deck.deck.last.present = true;
-
     }
     if (type == 2){
       deck.deck.last.present2 = true;
-
     }
     deck.deck.removeLast();
     return card;
@@ -84,13 +82,13 @@ class RondaGame {
     if (board.revertColor){
 
       print("need revert");
-      if (coreGame.bValue>80){coreGame.bValue--;}
-      else {board.revertColor = false;}
+      if (coreGame.bValue>0.03){coreGame.bValue -= 0.03;}
+      else {  board.revertColor = false;  }
     }
     if (board.revertColorR){
       print("need revert");
-      if (coreGame.rValue>0){coreGame.rValue--;}
-      else {board.revertColorR = false;}
+      if (coreGame.rValue>0.03){coreGame.rValue-= 0.03;}
+      else {  board.revertColorR = false; }
     }
     //print("moving: " + coreGame.movingCard.toString());
     opponent.update(t);
@@ -98,7 +96,6 @@ class RondaGame {
     playerScoreDisplay.update(t, player);
     opponentScoreDisplay.update(t, opponent);
     if (deck.deck.isNotEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
-
       //Flame.audio.play("sfx/dealmultiplescards.mp3");
       player.takeCard(dealCard(1));
       player.takeCard(dealCard(1));
@@ -124,21 +121,26 @@ class RondaGame {
 
   void onTapDown(TapDownDetails d) {
     if (turn == 0) {
-      playerTurn(d, player);
+      if (!coreGame.movingCard){
+        playerTurn(d, player);
+      }
+
     }
   }
 
   void opponentTurn() {
-
+    int result = 0;
     if (turn == 1 && !coreGame.movingCard) {
 
       Random rnd = new Random();
       int r = 0 + rnd.nextInt(opponent.cards.length - 0);
-      board.playCard(opponent.cards[r], opponent);
-      opponent.cards[r].reveal = true;
-      const twentyMillis = Duration(milliseconds:1000);
+      result = board.playCard(opponent.cards[r], opponent);
+      if (result != 1){
+        opponent.cards[r].reveal = true;
+      }
+      const twentyMillis = Duration(milliseconds:2000);
       Timer(twentyMillis, () => opponent.cards.removeAt(r));
-
+      //opponent.cards[r].fade = true;
       endTurn();
     }
 
@@ -146,19 +148,25 @@ class RondaGame {
 
   void playerTurn(TapDownDetails d, Player player) {
     int playedCard = -1;
-    player.cards.forEach((GameCard card) {
-      if (card.cardRect.contains(d.globalPosition)) {
+    int result;
+    for (int i = 0; i< player.cards.length; i++){
+      if (player.cards[i].cardRect.contains(d.globalPosition)) {
+
         //card.move = 1;
-        board.playCard(card, player);
+        result = board.playCard(player.cards[i], player);
         coreGame.movingCard = true;
-        playedCard = player.cards.indexOf(card);
+
+        if (result != 1) {
+           player.cards[i].fadeDown = true;
+           print("///// Revealing ////");
+        }
+        const twentyMillis = Duration(milliseconds:1000);
+        Timer(twentyMillis, () => player.cards.removeAt(i));
+
+
         //Flame.audio.play("sfx/dealcard.mp3");
         endTurn();
-
       }
-    });
-    if (playedCard != -1) {
-      player.cards.removeAt(playedCard);
     }
   }
 

@@ -36,7 +36,7 @@ class Player {
   }
   double slideNum = 1;
   void render(Canvas canvas) {
-    cards.forEach((element) {element.render(canvas);});
+    cards.forEach((element) {if (element.fadeDown){element.posY += 2;}element.render(canvas);});
     cards.forEach((card) {
       if (card.present == true && card.posY > game.screenSize.height - (2*cardHeight / 3)) {
         card.posY -= slideNum;

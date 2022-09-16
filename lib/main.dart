@@ -8,6 +8,7 @@ import 'CoreGame.dart';
 
 void main() {
   CoreGame game = new CoreGame();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(game.widget);
 
   Util flameUtil = Util();

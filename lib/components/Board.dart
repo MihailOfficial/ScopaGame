@@ -160,9 +160,9 @@ class Board {
 
   }
 
-  void playCard(GameCard card, Player player) {
+  int playCard(GameCard card, Player player) {
     move = 0 ;
-
+    int result = 0;
 
     List<GameCard> found = List<GameCard>();
     summed.clear();
@@ -175,7 +175,7 @@ class Board {
         }
         boardCard.fade = true;
         player.score += 1;
-        return;
+        return 0;
       }
     };
     // no matching card
@@ -185,7 +185,7 @@ class Board {
 
       if (summed.isEmpty) {
         changed = 1;
-
+        result = 1;
         cards.add(card);
         card.played = 1;
 
@@ -197,6 +197,7 @@ class Board {
               print(" ident: " + cards.elementAt(a).value.toString());
               found.add(cards.elementAt(a));
               player.score += 1;
+
               //handle score later
             }
           }
@@ -217,7 +218,7 @@ class Board {
     if (player is OpponentPlayer == false) {
         //Flame.audio.play("sfx/win.mp3");
     }
-
+    return result;
   }
 
   void find(var A, int currSum, int index, int sum, var solution) {
@@ -243,7 +244,6 @@ class Board {
       solution[index] = 0; // do not select the element
       find(A, currSum, index + 1, sum, solution);
     }
-    return;
   }
 
 
@@ -251,7 +251,7 @@ class Board {
     int moveSpeed = 2;
     double distance ;
 
-      if (card.offsetX == 0 && (posXz - card.posX).abs() > 1) {
+      if (card.offsetX == 0 && (posXz - card.posX).abs() > 0.3) {
         if (card.offsetX == 0) {
           card.offsetX = (posXz - card.posX).abs() / 10;
           if (card.offsetX < 0.01){card.offsetX = 0.01;}
@@ -268,7 +268,7 @@ class Board {
           card.posX -= card.offsetX;
         }
       }
-      if (card.offsetY == 0 && (posYz - card.posY).abs() > 1) {
+      if (card.offsetY == 0 && (posYz - card.posY).abs() > 0.3) {
         game.movingCard = true;
         card.isMoving = true;
         changed++;

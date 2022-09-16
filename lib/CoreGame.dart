@@ -5,6 +5,7 @@ import 'package:Scopa/views/home-view.dart';
 import 'package:Scopa/views/result.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 
 import 'RondaGame.dart';
@@ -21,9 +22,9 @@ class CoreGame extends Game {
   StartButton startButton;
   Result resultView;
   bool movingCard = false;
-
-  int bValue = 80;
-  int rValue = 0;
+  Sprite tempSprite;
+  double bValue = 0;
+  double rValue = 0;
   CoreGame() {
     initialize();
   }
@@ -33,6 +34,7 @@ class CoreGame extends Game {
     homeView = HomeView(this);
     startButton = StartButton(this);
     resultView = Result(this);
+    tempSprite =  Sprite("UI/wood.jpg");
   }
 
   @override
@@ -56,17 +58,41 @@ class CoreGame extends Game {
     Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     //Paint bgPaint = Paint();
     //bgPaint.color = Color(0xff162111);
-
-    final paint = Paint()
+    Rect rectTop = Rect.fromLTWH(0, 0, screenSize.width, 90);
+    Rect rectBottom = Rect.fromLTWH(0, screenSize.height - 90, screenSize.width, 90);
+    /*final paint = Paint()
       ..shader = LinearGradient(
         colors: [
-          Color.fromRGBO(0, bValue, 0, 1),
-          Color.fromRGBO(rValue, 0, 0, 1.0),
+          Color.fromRGBO(46, 72, 111, 1.0),
+          Color.fromRGBO(201, 156, 180, 1.0),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
-      ).createShader(bgRect);
-    canvas.drawRect(bgRect, paint);
+      ).createShader(bgRect);*/
+    final paintTop = Paint()
+      ..shader = LinearGradient(
+        colors: [
+
+          Color.fromRGBO(0, 0, 0, 0),
+          Color.fromRGBO(177, 144, 127, rValue),
+        ],
+        begin: Alignment.bottomCenter,
+        end: Alignment.topCenter,
+      ).createShader(rectTop);
+    final paintBottom = Paint()
+      ..shader = LinearGradient(
+        colors: [
+
+          Color.fromRGBO(177, 144, 127, bValue),
+          Color.fromRGBO(0, 0, 0, 0),
+        ],
+        begin: Alignment.bottomCenter,
+        end: Alignment.topCenter,
+      ).createShader(rectBottom);
+    //canvas.drawRect(bgRect, paint);
+    tempSprite.renderRect(canvas, bgRect);
+    canvas.drawRect(rectTop, paintTop);
+    canvas.drawRect(rectBottom, paintBottom);
 
   }
 

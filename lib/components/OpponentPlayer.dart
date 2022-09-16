@@ -13,14 +13,19 @@ class OpponentPlayer extends Player {
       if (card.present2 == true && card.posY < -cardHeight / 2) {
         card.posY += 1;
       } else {
+
         card.present2 = false;
       }
-      if (card.reveal == true && card.posY < cardHeight) {
-        card.posY += 1;
+
+      if (card.reveal && card.posY > -cardHeight) {
+        card.posY -= 1;
 
       } else if (card.revealFalse){
         card.reveal = false;
       }
+
+
+
       card.update(t);
     });
 

@@ -32,6 +32,8 @@ class GameCard extends Component{
   bool isMoving = false;
   double offsetX = 0;
   double offsetY = 0;
+  bool deleteFade = false;
+  bool fadeDown = false;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;
@@ -55,12 +57,9 @@ class GameCard extends Component{
 
   void render(Canvas canvas) {
 
-
-
     cardRect = Rect.fromLTWH(posX, posY, width, height);
     canvas.drawRect(cardRect, paint..color = background.withOpacity(opacity));
     cardSprite.renderRect(canvas, cardRect);
-
 
   }
 
@@ -75,19 +74,26 @@ class GameCard extends Component{
    double _acceleration = 1;
   @override
   void update(double t) {
+  if (fadeDown){
+    this.posY += 1;
+  }
 
-
-    if (!visible & !reveal) {
+    if (!visible ) {
       cardSprite = Sprite("tempo/back.png");
     }  else if (fade ){
-
+      cardSprite = Sprite("tempo/" + value.toString() + "_" + type + "_white.png");
         this.posX -= _acceleration * 0.5;
         if (cpuCard){
           this.posY -= _acceleration;
-          game.rValue += 1;
+          if (game.rValue< 0.97){
+            game.rValue += 0.03;
+          }
+
         } else {
           this.posY += _acceleration;
-          game.bValue += 1;
+          if (game.bValue< 0.97){
+            game.bValue += 0.03;
+          }
 
         }
 
