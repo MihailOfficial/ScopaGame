@@ -34,7 +34,7 @@ class CoreGame extends Game {
     homeView = HomeView(this);
     startButton = StartButton(this);
     resultView = Result(this);
-    tempSprite =  Sprite("UI/wood.jpg");
+    tempSprite =  Sprite("UI/wood4.jpeg");
   }
 
   @override
