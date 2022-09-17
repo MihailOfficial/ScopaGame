@@ -34,7 +34,7 @@ class CoreGame extends Game {
     homeView = HomeView(this);
     startButton = StartButton(this);
     resultView = Result(this);
-    tempSprite =  Sprite("UI/wood4.jpeg");
+    tempSprite =  Sprite("UI/geoback2.jpg");
   }
 
   @override
@@ -53,28 +53,29 @@ class CoreGame extends Game {
       startButton.render(canvas);
     }
   }
-
+  double wideX = 0.0;
   void drawBackground(Canvas canvas) {
     Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     //Paint bgPaint = Paint();
     //bgPaint.color = Color(0xff162111);
-    Rect rectTop = Rect.fromLTWH(0, 0, screenSize.width, 90);
-    Rect rectBottom = Rect.fromLTWH(0, screenSize.height - 90, screenSize.width, 90);
-    /*final paint = Paint()
+    Rect rectTop = Rect.fromLTWH(0, 0, screenSize.width, 120);
+    Rect rectBottom = Rect.fromLTWH(0, screenSize.height - 120, screenSize.width, 120);
+    final paint = Paint()
       ..shader = LinearGradient(
         colors: [
-          Color.fromRGBO(46, 72, 111, 1.0),
-          Color.fromRGBO(201, 156, 180, 1.0),
+          Color.fromRGBO(240, 190, 166, wideX),
+          Color.fromRGBO(136, 186, 205, wideX),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
-      ).createShader(bgRect);*/
+      ).createShader(bgRect);
     final paintTop = Paint()
       ..shader = LinearGradient(
         colors: [
 
-          Color.fromRGBO(0, 0, 0, 0),
-          Color.fromRGBO(177, 144, 127, rValue),
+          Color.fromRGBO(231, 189, 209, 0),
+
+          Color.fromRGBO(231, 189, 209, rValue),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
@@ -83,14 +84,15 @@ class CoreGame extends Game {
       ..shader = LinearGradient(
         colors: [
 
-          Color.fromRGBO(177, 144, 127, bValue),
-          Color.fromRGBO(0, 0, 0, 0),
+          Color.fromRGBO(149, 181, 148, bValue),
+          Color.fromRGBO(149, 181, 148, 0),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
       ).createShader(rectBottom);
     //canvas.drawRect(bgRect, paint);
-    tempSprite.renderRect(canvas, bgRect);
+   // tempSprite.renderRect(canvas, bgRect);
+    canvas.drawRect(bgRect, paint);
     canvas.drawRect(rectTop, paintTop);
     canvas.drawRect(rectBottom, paintBottom);
 
@@ -98,7 +100,7 @@ class CoreGame extends Game {
 
   @override
   void update(double t) {
-
+    if (wideX < 0.97){wideX += 0.03;}
     if (activeView == View.playing) {
       rondaGame.update(t);
 

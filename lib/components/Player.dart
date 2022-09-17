@@ -10,26 +10,27 @@ class Player {
   List<GameCard> cards;
   double cardPosX = 0;
   double cardPosY;
-  double cardWidth;
-  double cardHeight;
+  double cardHeight = 0;
+  double cardWidth = 0;
+
 
   int score = 0;
 
   Player(this.game) {
     cards = List<GameCard>();
-    cardWidth = game.screenSize.width / 5;
-    cardHeight = game.screenSize.height / 6;
+
     cardPosY = game.screenSize.height - 10;
     //game.screenSize.height - cardHeight / 2;
   }
 
   void takeCard(GameCard card) {
-
+    cardHeight = card.height;
+    cardWidth = card.width;
     if (cards.length < 3) {
       cards.add(card);
-      double posX = (cardWidth * cards.length);
-      card.cardRect = Rect.fromLTWH(posX, cardPosY, cardWidth, cardHeight);
-      card.setPos(posX, cardPosY, cardHeight, cardWidth);
+      double posX = (card.width * cards.length);
+
+      card.setPosXY(posX, cardPosY);
       card.cardSprite = Sprite("tempo/back.png");
       card.present = true;
     }
@@ -38,13 +39,13 @@ class Player {
   void render(Canvas canvas) {
     cards.forEach((element) {if (element.fadeDown){element.posY += 2;}element.render(canvas);});
     cards.forEach((card) {
-      if (card.present == true && card.posY > game.screenSize.height - (2*cardHeight / 3)) {
+      if (card.present == true && card.posY > game.screenSize.height - (2*card.height / 3)) {
         card.posY -= slideNum;
         slideNum = slideNum*slideNum;
       } else {
         card.present = false;
         slideNum = 1;
-        card.cardSprite = Sprite("tempo/" + card.value.toString() + "_" + card.type + "_white.png");
+        card.cardSprite = Sprite("tempo/" + card.value.toString() +  card.type + ".png");
       }
 
     });

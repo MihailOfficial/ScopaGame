@@ -24,7 +24,7 @@ class Board {
   Board(this.game) {
     cards = List<GameCard>();
     cardWidth = game.screenSize.width / 5;
-    cardHeight = game.screenSize.height / 5;
+    cardHeight = game.screenSize.height / 4.6;
     cardPosY = game.screenSize.height / 2 - cardHeight;
 
   }

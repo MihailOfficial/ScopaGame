@@ -34,19 +34,22 @@ class GameCard extends Component{
   double offsetY = 0;
   bool deleteFade = false;
   bool fadeDown = false;
+  bool grow = false;
+  bool oneTime = false;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;
     this.fade = false;
     this.played = played;
     move = 0;
-    width = game.screenSize.width / 5;
-    height = game.screenSize.height / 5;
+    width = game.screenSize.width / 5.3;
+    height = game.screenSize.height / 6.8;
+
     posX = game.screenSize.width / 2 - width / 2;
     posY = game.screenSize.height - height / 2;
     this.value = value;
     this.type = type;
-    this.cardSprite = Sprite("new/" + value.toString() + "_of_" + type + ".svg");
+    //this.cardSprite = Sprite("new/" + value.toString() + "_of_" + type + ".svg");
 
     cardRect = Rect.fromLTWH(posX, posY, width, height);
     this.delete = false;
@@ -70,10 +73,17 @@ class GameCard extends Component{
     this.width = width;
     this.height = height;
   }
+  void setPosXY (double posX, double posY ){
+
+    this.posX = posX;
+    this.posY = posY;
+  }
 
    double _acceleration = 1;
   @override
   void update(double t) {
+
+
   if (fadeDown){
     this.posY += 1;
   }
@@ -81,7 +91,7 @@ class GameCard extends Component{
     if (!visible ) {
       cardSprite = Sprite("tempo/back.png");
     }  else if (fade ){
-      cardSprite = Sprite("tempo/" + value.toString() + "_" + type + "_white.png");
+      cardSprite = Sprite("tempo/" + value.toString() + type + ".png");
         this.posX -= _acceleration * 0.5;
         if (cpuCard){
           this.posY -= _acceleration;
@@ -104,7 +114,7 @@ class GameCard extends Component{
 
 
     } else {
-      cardSprite = Sprite("tempo/" + value.toString() + "_" + type + "_white.png");
+      cardSprite = Sprite("tempo/" + value.toString() + type + ".png");
 
     }
 

@@ -8,51 +8,51 @@ class Deck {
   Deck(this.game) {
     deck = List<GameCard>();
 
-    deck.add(new GameCard(game, 1, "hearts", 0));
-    deck.add(new GameCard(game, 2, "hearts", 0));
-    deck.add(new GameCard(game, 3, "hearts", 0));
-    deck.add(new GameCard(game, 4, "hearts", 0));
-    deck.add(new GameCard(game, 5, "hearts", 0));
-    deck.add(new GameCard(game, 6, "hearts", 0));
-    deck.add(new GameCard(game, 7, "hearts", 0));
-    deck.add(new GameCard(game, 8, "hearts", 0));
-    deck.add(new GameCard(game, 9, "hearts", 0));
-    deck.add(new GameCard(game, 10, "hearts", 0));
+    deck.add(new GameCard(game, 1, "H", 0));
+    deck.add(new GameCard(game, 2, "H", 0));
+    deck.add(new GameCard(game, 3, "H", 0));
+    deck.add(new GameCard(game, 4, "H", 0));
+    deck.add(new GameCard(game, 5, "H", 0));
+    deck.add(new GameCard(game, 6, "H", 0));
+    deck.add(new GameCard(game, 7, "H", 0));
+    deck.add(new GameCard(game, 8, "H", 0));
+    deck.add(new GameCard(game, 9, "H", 0));
+    deck.add(new GameCard(game, 10, "H", 0));
 
-    deck.add(new GameCard(game, 1, "clubs", 0));
-    deck.add(new GameCard(game, 2, "clubs", 0));
-    deck.add(new GameCard(game, 3, "clubs", 0));
-    deck.add(new GameCard(game, 4, "clubs", 0));
-    deck.add(new GameCard(game, 5, "clubs", 0));
-    deck.add(new GameCard(game, 6, "clubs", 0));
-    deck.add(new GameCard(game, 7, "clubs", 0));
-    deck.add(new GameCard(game, 8, "clubs", 0));
-    deck.add(new GameCard(game, 9, "clubs", 0));
-    deck.add(new GameCard(game, 10, "clubs", 0));
-
-
-    deck.add(new GameCard(game, 1, "spades", 0));
-    deck.add(new GameCard(game, 2, "spades", 0));
-    deck.add(new GameCard(game, 3, "spades", 0));
-    deck.add(new GameCard(game, 4, "spades", 0));
-    deck.add(new GameCard(game, 5, "spades", 0));
-    deck.add(new GameCard(game, 6, "spades", 0));
-    deck.add(new GameCard(game, 7, "spades", 0));
-    deck.add(new GameCard(game, 8, "spades", 0));
-    deck.add(new GameCard(game, 9, "spades", 0));
-    deck.add(new GameCard(game, 10, "spades", 0));
+    deck.add(new GameCard(game, 1, "C", 0));
+    deck.add(new GameCard(game, 2, "C", 0));
+    deck.add(new GameCard(game, 3, "C", 0));
+    deck.add(new GameCard(game, 4, "C", 0));
+    deck.add(new GameCard(game, 5, "C", 0));
+    deck.add(new GameCard(game, 6, "C", 0));
+    deck.add(new GameCard(game, 7, "C", 0));
+    deck.add(new GameCard(game, 8, "C", 0));
+    deck.add(new GameCard(game, 9, "C", 0));
+    deck.add(new GameCard(game, 10, "C", 0));
 
 
-    deck.add(new GameCard(game, 1, "diamonds", 0));
-    deck.add(new GameCard(game, 2, "diamonds", 0));
-    deck.add(new GameCard(game, 3, "diamonds", 0));
-    deck.add(new GameCard(game, 4, "diamonds", 0));
-    deck.add(new GameCard(game, 5, "diamonds", 0));
-    deck.add(new GameCard(game, 6, "diamonds", 0));
-    deck.add(new GameCard(game, 7, "diamonds", 0));
-    deck.add(new GameCard(game, 8, "diamonds", 0));
-    deck.add(new GameCard(game, 9, "diamonds", 0));
-    deck.add(new GameCard(game, 10, "diamonds", 0));
+    deck.add(new GameCard(game, 1, "S", 0));
+    deck.add(new GameCard(game, 2, "S", 0));
+    deck.add(new GameCard(game, 3, "S", 0));
+    deck.add(new GameCard(game, 4, "S", 0));
+    deck.add(new GameCard(game, 5, "S", 0));
+    deck.add(new GameCard(game, 6, "S", 0));
+    deck.add(new GameCard(game, 7, "S", 0));
+    deck.add(new GameCard(game, 8, "S", 0));
+    deck.add(new GameCard(game, 9, "S", 0));
+    deck.add(new GameCard(game, 10, "S", 0));
+
+
+    deck.add(new GameCard(game, 1, "D", 0));
+    deck.add(new GameCard(game, 2, "D", 0));
+    deck.add(new GameCard(game, 3, "D", 0));
+    deck.add(new GameCard(game, 4, "D", 0));
+    deck.add(new GameCard(game, 5, "D", 0));
+    deck.add(new GameCard(game, 6, "D", 0));
+    deck.add(new GameCard(game, 7, "D", 0));
+    deck.add(new GameCard(game, 8, "D", 0));
+    deck.add(new GameCard(game, 9, "D", 0));
+    deck.add(new GameCard(game, 10, "D", 0));
 
     deck.shuffle();
   }

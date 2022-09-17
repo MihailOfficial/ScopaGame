@@ -39,6 +39,9 @@ class RondaGame {
     if (type == 2){
       deck.deck.last.present2 = true;
     }
+    if (type == 3){
+      deck.deck.last.grow = true;
+    }
     deck.deck.removeLast();
     return card;
   }

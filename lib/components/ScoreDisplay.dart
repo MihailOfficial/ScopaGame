@@ -18,12 +18,12 @@ class ScoreDisplay {
     );
 
     textStyle = TextStyle(
-      color: Color(0xfffff8dc),
+      color: Color(0xffffffff),
       fontSize: 40,
       shadows: <Shadow>[
         Shadow(
           blurRadius: 7,
-          color: Color(0xffd0b987),
+          color: Color(0xffa28121),
           offset: Offset(3, 3),
         ),
       ],
