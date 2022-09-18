@@ -85,13 +85,13 @@ class RondaGame {
     if (board.revertColor){
 
       print("need revert");
-      if (coreGame.bValue>0.03){coreGame.bValue -= 0.03;}
-      else {  board.revertColor = false;  }
+      if (coreGame.bValue > 2){coreGame.bValue -= 3;}
+      else {board.revertColor = false;}
     }
     if (board.revertColorR){
       print("need revert");
-      if (coreGame.rValue>0.03){coreGame.rValue-= 0.03;}
-      else {  board.revertColorR = false; }
+      if (coreGame.rValue > 2){coreGame.rValue -= 3;}
+      else {board.revertColorR = false;}
     }
     //print("moving: " + coreGame.movingCard.toString());
     opponent.update(t);

@@ -4,15 +4,11 @@ import 'package:Scopa/components/Player.dart';
 
 class OpponentPlayer extends Player {
   OpponentPlayer(game) : super(game) {
-
     cardPosY = -cardHeight;
-    cards.forEach((card) {
-      card.setPosXY(cardPosX,  -cardHeight);
-    });
-
   }
   bool hide = false;
   void update(double t) {
+
     cards.forEach((card) {
       card.visible = false;
       if (card.present2 == true && card.posY < -cardHeight / 2) {

@@ -9,7 +9,7 @@ class Player {
 
   List<GameCard> cards;
   double cardPosX = 0;
-  double cardPosY;
+  double cardPosY = 0;
   double cardHeight = 0;
   double cardWidth = 0;
 
@@ -18,7 +18,8 @@ class Player {
 
   Player(this.game) {
     cards = List<GameCard>();
-
+    cardWidth = game.screenSize.width / 5.3;
+    cardHeight = game.screenSize.height / 6.8;
     cardPosY = game.screenSize.height - 10;
     //game.screenSize.height - cardHeight / 2;
   }
@@ -28,9 +29,9 @@ class Player {
     cardWidth = card.width;
     if (cards.length < 3) {
       cards.add(card);
-      double posX = (card.width * cards.length);
-
-      card.setPosXY(posX, cardPosY);
+      double posX = (cardWidth * cards.length);
+      card.cardRect = Rect.fromLTWH(posX, cardPosY, cardWidth, cardHeight);
+      card.setPos(posX, cardPosY, cardHeight, cardWidth);
       card.cardSprite = Sprite("tempo/back.png");
       card.present = true;
     }

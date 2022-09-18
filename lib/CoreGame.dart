@@ -23,8 +23,8 @@ class CoreGame extends Game {
   Result resultView;
   bool movingCard = false;
   Sprite tempSprite;
-  double bValue = 0;
-  double rValue = 0;
+  int bValue = 0;
+  int rValue = 0;
   CoreGame() {
     initialize();
   }
@@ -58,49 +58,24 @@ class CoreGame extends Game {
     Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     //Paint bgPaint = Paint();
     //bgPaint.color = Color(0xff162111);
-    Rect rectTop = Rect.fromLTWH(0, 0, screenSize.width, 120);
-    Rect rectBottom = Rect.fromLTWH(0, screenSize.height - 120, screenSize.width, 120);
     final paint = Paint()
       ..shader = LinearGradient(
         colors: [
-          Color.fromRGBO(240, 190, 166, wideX),
-          Color.fromRGBO(136, 186, 205, wideX),
+          Color.fromRGBO(180-bValue, 250, 180-bValue, 1),
+          Color.fromRGBO(250, 180-rValue, 180-rValue, 1.0),
+
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
       ).createShader(bgRect);
-    final paintTop = Paint()
-      ..shader = LinearGradient(
-        colors: [
-
-          Color.fromRGBO(231, 189, 209, 0),
-
-          Color.fromRGBO(231, 189, 209, rValue),
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      ).createShader(rectTop);
-    final paintBottom = Paint()
-      ..shader = LinearGradient(
-        colors: [
-
-          Color.fromRGBO(149, 181, 148, bValue),
-          Color.fromRGBO(149, 181, 148, 0),
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      ).createShader(rectBottom);
-    //canvas.drawRect(bgRect, paint);
-   // tempSprite.renderRect(canvas, bgRect);
     canvas.drawRect(bgRect, paint);
-    canvas.drawRect(rectTop, paintTop);
-    canvas.drawRect(rectBottom, paintBottom);
+
 
   }
 
   @override
   void update(double t) {
-    if (wideX < 0.97){wideX += 0.03;}
+
     if (activeView == View.playing) {
       rondaGame.update(t);
 

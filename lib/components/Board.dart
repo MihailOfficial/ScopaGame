@@ -71,6 +71,8 @@ class Board {
       GameCard card = cards[i];
       if (card.delete == true) {
         //deleted.add(card);
+        revertColor = true;
+        revertColorR = true;
         if (card.cpuCard){
           revertColorR = true;
         } else {
@@ -79,7 +81,8 @@ class Board {
 
         cards.remove(card);
         card.fade = false;
-
+        revertColor = true;
+        revertColorR = true;
       }
       if (!card.fade) {
         move++;

@@ -92,20 +92,22 @@ class GameCard extends Component{
       cardSprite = Sprite("tempo/back.png");
     }  else if (fade ){
       cardSprite = Sprite("tempo/" + value.toString() + type + ".png");
-        this.posX -= _acceleration * 0.5;
-        if (cpuCard){
-          this.posY -= _acceleration;
-          if (game.rValue< 0.97){
-            game.rValue += 0.03;
-          }
-
-        } else {
-          this.posY += _acceleration;
-          if (game.bValue< 0.97){
-            game.bValue += 0.03;
-          }
-
+      this.posX -= _acceleration * 0.5;
+      if (cpuCard){
+        this.posY -= _acceleration;
+        if (game.rValue < 177){
+          game.rValue += 3;
         }
+
+      } else {
+        this.posY += _acceleration;
+        if (game.bValue < 177){
+          game.bValue += 3;
+        }
+
+      }
+
+      _acceleration = _acceleration * 1.08;
 
         _acceleration = _acceleration * 1.08;
 
