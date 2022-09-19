@@ -61,8 +61,9 @@ class CoreGame extends Game {
     final paint = Paint()
       ..shader = LinearGradient(
         colors: [
-          Color.fromRGBO(180-bValue, 250, 180-bValue, 1),
-          Color.fromRGBO(250, 180-rValue, 180-rValue, 1.0),
+          Color.fromRGBO(190-bValue, 250, 190-bValue, 1),
+          Color.fromRGBO(250, 250, 250, 1),
+          Color.fromRGBO(250, 190-rValue, 190-rValue, 1.0),
 
         ],
         begin: Alignment.bottomCenter,

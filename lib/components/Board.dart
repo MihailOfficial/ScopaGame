@@ -6,10 +6,17 @@ import 'package:Scopa/components/OpponentPlayer.dart';
 import 'package:Scopa/components/Player.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/services.dart';
 
 import 'GameCard.dart';
+class StoreLocation{
+  double x = 0;
+  double y = 0;
+  bool full = false;
+}
 
 class Board {
+  List <StoreLocation> locations = new List<StoreLocation>();
   List<GameCard> cards;
   final game;
   List<GameCard> deleted;
@@ -22,10 +29,33 @@ class Board {
   bool revertColor = false;
   bool revertColorR = false;
   Board(this.game) {
+
     cards = List<GameCard>();
     cardWidth = game.screenSize.width / 5;
     cardHeight = game.screenSize.height / 4.6;
-    cardPosY = game.screenSize.height / 2 - cardHeight;
+    cardPosY = game.screenSize.height / 2 - game.screenSize.height / 6.8- game.screenSize.height / 6.8- (game.screenSize.height / 6.8)/2;
+
+    for (int i = 0; i< 16; i++){
+      StoreLocation temp = new StoreLocation();
+      if (i< 4){
+        //first row
+        temp.x = cardWidth /2 + i * cardWidth;
+        temp.y = cardPosY;
+      } else if (i < 8){
+        //second row
+        temp.x = cardWidth /2 + (i-5) * cardWidth + cardWidth;
+        temp.y =  cardPosY + 0.8 * cardHeight;
+      } else if (i < 12){
+        //thirst row
+        temp.x = cardWidth /2 + (i-9) * cardWidth + cardWidth;
+        temp.y =  cardPosY + 2* 0.8 * cardHeight;
+      } else {
+        temp.x = cardWidth /2 + (i-12) * cardWidth;
+        temp.y =  cardPosY + 3* 0.8 * cardHeight;
+    }
+      print("carding///////////////");
+      locations.add(temp);
+    }
 
   }
   int move = 0;
@@ -42,11 +72,13 @@ class Board {
       GameCard card = cards[i];
 
       if (card.delete == true) {
+
         //eleted.add(card);
         if (card.cpuCard){
           revertColorR = true;
         } else {
           revertColor = true;
+          HapticFeedback.vibrate();
         }
         cards.remove(card);
         card.fade = false;
@@ -92,33 +124,13 @@ class Board {
           double posXz;
           double posYz;
           int moveSpeed = 2;
-          if (cards.indexOf(card) < 3) {
-            posXz = cards.indexOf(card) * cardWidth + cardWidth;
-            posYz = cardPosY;
-            changed = mover(posXz, posYz, card, changed);
-            //card.setPos(posXz, posYz, 0.8 * cardHeight - 5, card.width - 5);
-          } else if (cards.indexOf(card) < 6) {
-            posXz =
-                (cards.indexOf(card) * cardWidth + cardWidth) - 3 * cardWidth;
-            posYz = cardPosY + 0.8 * cardHeight;
-            changed = mover(posXz, posYz, card, changed);
-          } else if (cards.indexOf(card) == 6) {
-            posXz = 0;
-            posYz = cardPosY;
-            changed = mover(posXz, posYz, card, changed);
-          } else if (cards.indexOf(card) == 7) {
-            posXz = game.screenSize.width - card.width;
-            posYz = cardPosY;
-            changed = mover(posXz, posYz, card, changed);
-          } else if (cards.indexOf(card) == 8) {
-            posXz = 0;
-            posYz = cardPosY + 0.8 * cardHeight;
-            changed = mover(posXz, posYz, card, changed);
-          } else if (cards.indexOf(card) == 9) {
-            posXz = game.screenSize.width - cardWidth;
-            posYz = cardPosY + 0.8 * cardHeight;
-            changed = mover(posXz, posYz, card, changed);
+          if (card.boardPosition == -1){
+            StoreLocation findLocation = findFreeSpace(card);
+            changed = mover(findLocation.x, findLocation.y, card, changed);
+          } else {
+            changed = mover(locations.elementAt(card.boardPosition).x, locations.elementAt(card.boardPosition).y, card, changed);
           }
+
         }
       }
 
@@ -180,7 +192,7 @@ class Board {
         player.score += 1;
         return 0;
       }
-    };
+    }
     // no matching card
     if (found.isEmpty) {
       List<int> sol = List<int>(cards.length);
@@ -249,7 +261,19 @@ class Board {
     }
   }
 
-
+  StoreLocation findFreeSpace(GameCard card){
+    StoreLocation temp = new StoreLocation();
+    for (int i = 0; i< 16; i++){
+      if (!locations.elementAt(i).full){
+        temp.x = locations.elementAt(i).x;
+        temp.y = locations.elementAt(i).y;
+        card.boardPosition = i;
+        locations.elementAt(i).full = true;
+        break;
+      }
+    }
+    return temp;
+  }
   int mover (double posXz, double posYz, GameCard card, int changed){
     int moveSpeed = 2;
     double distance ;

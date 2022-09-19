@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:Scopa/view.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'components/GameCard.dart';
 import 'components/Deck.dart';
@@ -56,6 +57,24 @@ class RondaGame {
     board.cards.add(dealCard(3));
     board.cards.add(dealCard(3));
     board.cards.add(dealCard(3));
+
+
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+
+
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+    board.cards.add(dealCard(3));
+
     if (player == null) {
       player = new Player(coreGame);
       player.takeCard(dealCard(1));
@@ -117,7 +136,9 @@ class RondaGame {
       }
       coreGame.activeView = View.result;
     }
-    opponentTurn();
+    const twentyMillis = Duration(milliseconds:3500);
+    Timer(twentyMillis, () => opponentTurn());
+
 
 
   }
@@ -154,7 +175,7 @@ class RondaGame {
     int result;
     for (int i = 0; i< player.cards.length; i++){
       if (player.cards[i].cardRect.contains(d.globalPosition)) {
-
+        HapticFeedback.selectionClick();
         //card.move = 1;
         result = board.playCard(player.cards[i], player);
         coreGame.movingCard = true;

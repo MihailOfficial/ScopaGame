@@ -36,6 +36,7 @@ class GameCard extends Component{
   bool fadeDown = false;
   bool grow = false;
   bool oneTime = false;
+  int boardPosition = -1;
   //newCard 1 if just added from hand
   GameCard(this.game, int value, String type, int played) {
     this.updatePos = false;
@@ -95,14 +96,14 @@ class GameCard extends Component{
       this.posX -= _acceleration * 0.5;
       if (cpuCard){
         this.posY -= _acceleration;
-        if (game.rValue < 177){
-          game.rValue += 3;
+        if (game.rValue < 170){
+          game.rValue += 10;
         }
 
       } else {
         this.posY += _acceleration;
-        if (game.bValue < 177){
-          game.bValue += 3;
+        if (game.bValue < 170){
+          game.bValue += 10;
         }
 
       }
